@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>海上調查目擊分布地圖</title>
+    <title>海上調查目擊分布地圖 (受保護)</title>
     <style>
         body {
             font-family: "Microsoft JhengHei", Arial, sans-serif;
@@ -38,9 +38,32 @@
             font-size: 18px;
             border-radius: 8px;
             transition: background-color 0.3s;
+            cursor: pointer;
         }
         .btn:hover {
             background-color: #2980b9;
+        }
+        
+        /* 密碼輸入框樣式 */
+        #login-area {
+            display: block; /* 預設顯示 */
+        }
+        #content-area {
+            display: none; /* 預設隱藏 */
+        }
+        input[type="password"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 70%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #error-msg {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
         }
         .footer {
             margin-top: 20px;
@@ -53,15 +76,48 @@
 
     <div class="container">
         <h1>🐬 海上調查目擊分布地圖</h1>
-        <p>請選擇您想查看的年份區間：</p>
         
-        <a href="2016-2020/index.html" class="btn">📅 2016 - 2020 年分布圖</a>
-        <a href="2021-2024/index.html" class="btn">📅 2021 - 2024 年分布圖</a>
+        <div id="login-area">
+            <p>本頁面受密碼保護，請輸入團隊密碼：</p>
+            <input type="password" id="password-input" placeholder="請輸入密碼">
+            <button class="btn" onclick="checkPassword()">登入</button>
+            <p id="error-msg">❌ 密碼錯誤，請重試。</p>
+        </div>
+
+        <div id="content-area">
+            <p>✅ 驗證成功！請選擇年份區間：</p>
+            
+            <a href="2016-2019/index.html" class="btn">📅 2016 - 2019 年分布圖</a>
+            <a href="2020-2024/index.html" class="btn">📅 2020 - 2024 年分布圖</a>
+        </div>
         
         <div class="footer">
-            資料來源：海上調查目擊分布資料庫
+            資料來源：海上調查目擊分布資料庫 (內部使用)
         </div>
     </div>
+
+    <script>
+        function checkPassword() {
+            var input = document.getElementById("password-input").value;
+            var errorMsg = document.getElementById("error-msg");
+            var loginArea = document.getElementById("login-area");
+            var contentArea = document.getElementById("content-area");
+
+            // 👇👇👇 在這裡設定你的密碼 👇👇👇
+            var myPassword = "dolphin2025"; 
+            // 👆👆👆 修改雙引號裡面的文字即可
+
+            if (input === myPassword) {
+                // 密碼正確
+                loginArea.style.display = "none";   // 隱藏登入框
+                contentArea.style.display = "block"; // 顯示內容
+            } else {
+                // 密碼錯誤
+                errorMsg.style.display = "block";
+                document.getElementById("password-input").value = ""; // 清空輸入框
+            }
+        }
+    </script>
 
 </body>
 </html>
